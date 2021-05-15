@@ -2,6 +2,8 @@ import './scss/main.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Container, Row, Col, Form } from "react-bootstrap";
 import DifficultySelector from "./components/DifficultySelector";
+import {useState} from "react";
+import GameStatus from "./components/GameStatus";
 
 const alphabet = "abcdefghijklmnopqrstuvwxyz";
 const alphabetMap = [...alphabet].reduce((prev, curr) => {
@@ -9,7 +11,7 @@ const alphabetMap = [...alphabet].reduce((prev, curr) => {
     return prev;
 }, {});
 
-function App() {
+const App = () => {
     return (
         <Container>
             <Row>
@@ -18,7 +20,7 @@ function App() {
                        <DifficultySelector />
                     </Row>
                     <Row>
-                        <Button variant="primary">Start</Button>
+                        <GameStatus />
                     </Row>
                     <Row>
                         <span>17</span>

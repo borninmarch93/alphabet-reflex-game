@@ -25,24 +25,39 @@ const App = () => {
         }
     );
 
+    let timer = null;
+    const removeCurrentNumFromPool = () => {
+        const filterPool = pool.filter(num => num !== currentNumber)
+        setPool(filterPool);
+    }
+
+    const setCurrentNumberStatus = (status) => {
+        const currentLetter = alphabet[currentNumber];
+        setScores({...scores, [status]: scores[status] + 1})
+
+        setAlphabetMap({...alphabetMap, [currentLetter]: {...alphabetMap[currentLetter], status: status}})
+        console.log({...alphabetMap, [currentLetter]: {...alphabetMap[currentLetter], status: status}})
+    }
+
     useEffect(() => {
         if (difficultyLevel && gameStatus === 'started') {
-            const timer = setTimeout(() => {
-                const filterPool = pool.filter(num => num !== currentNumber)
-                setPool(filterPool);
+            timer = setTimeout(() => {
+                removeCurrentNumFromPool();
+                setCurrentNumberStatus('miss');
             }, difficultyLevel.time);
             return () => clearTimeout(timer);
         }
     }, [currentNumber, gameStatus]);
 
     const handleSubmit = (letter) => {
-        const currentLetter = alphabet[currentNumber];
         if (currentNumber === alphabetMap[letter].num) {
-            setScores({...scores, hit: scores.hit + 1})
-            setAlphabetMap({...alphabetMap, [currentLetter]: {...alphabetMap[currentLetter], status: 'hit'}})
+            setCurrentNumberStatus('hit');
+            clearTimeout(timer);
+            removeCurrentNumFromPool()
         } else {
-            setScores({...scores, miss: scores.miss + 1})
-            setAlphabetMap({...alphabetMap, [currentLetter]: {...alphabetMap[currentLetter], status: 'miss'}})
+            setCurrentNumberStatus('miss');
+            clearTimeout(timer);
+            removeCurrentNumFromPool()
         }
     }
 

@@ -9,12 +9,12 @@ const GameStatus = ({ onChange }) => {
         setGameStatus(status)
     }
     return (
-        <div>
+        <div className="game-status">
             {gameStatus === 'stopped' &&
-            <Button onClick={() => changeGameStatus('started')} variant="primary">Start</Button>}
+            <Button size="lg" onClick={() => changeGameStatus('started')} variant="primary">Start</Button>}
 
             {gameStatus === 'started' &&
-            <Button onClick={() => changeGameStatus('stopped')} variant="warning">Stop</Button>}
+            <Button size="lg" onClick={() => changeGameStatus('stopped')} variant="warning">Stop</Button>}
         </div>
     )
 }

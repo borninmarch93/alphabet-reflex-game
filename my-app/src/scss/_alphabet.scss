@@ -1,13 +1,25 @@
 .alphabet-game {
-}
+   margin-top: 5rem;
+   text-align: center;
+   @include m(center) {
+     display: flex;
+     justify-content: center;
+   }
+   @include e(item) {
+     .row {
+       justify-content: center;
+     }
+   }
+   input {
+     margin-bottom: 2rem;
+   }
+ }
 
 .alphabet-game-table {
   display: flex;
   flex-wrap: wrap;
-  /* height: 500px; */
   width: 450px;
-  /* flex: 1; */
-  justify-content: space-evenly;
+  justify-content: flex-start;
   @include e(item) {
     height: 70px;
     width: 70px;
@@ -31,5 +43,29 @@
     &.active {
       color: red;
     }
+  }
+}
+
+.game-status {
+  .btn {
+    margin-bottom: 2rem;
+  }
+}
+
+.score {
+  @include e(title){
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  @include e(hit) {
+    color: green;
+    margin-bottom: .500rem;
+  }
+  @include e(miss) {
+    color: red;
+    margin-bottom: .500rem;
+  }
+  @include e(left) {
+    color: gray;
   }
 }

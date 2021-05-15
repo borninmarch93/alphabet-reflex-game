@@ -1,8 +1,29 @@
 .alphabet-game {
-  @include e(table) {
-    display: flex;
-    flex-wrap: wrap;
-    height: 500px;
-    width: 400px;
+}
+
+.alphabet-game-table {
+  display: flex;
+  flex-wrap: wrap;
+  /* height: 500px; */
+  width: 450px;
+  /* flex: 1; */
+  justify-content: space-evenly;
+  @include e(item) {
+    height: 70px;
+    width: 70px;
+  }
+}
+
+.difficulty-level {
+  display: flex;
+  justify-content: space-between;
+  width: 200px;
+  @include e(item) {
+    cursor: pointer;
+    color: black;
+    padding: 10px;
+    &.active {
+      color: red;
+    }
   }
 }

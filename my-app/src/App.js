@@ -1,6 +1,7 @@
 import './scss/main.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Container, Row, Col, Form } from "react-bootstrap";
+import DifficultySelector from "./components/DifficultySelector";
 
 const alphabet = "abcdefghijklmnopqrstuvwxyz";
 const alphabetMap = [...alphabet].reduce((prev, curr) => {
@@ -14,11 +15,7 @@ function App() {
             <Row>
                 <Col lg={9}>
                     <Row>
-                        <div>
-                            <span>Easy</span>
-                            <span>Medium</span>
-                            <span>Hard</span>
-                        </div>
+                       <DifficultySelector />
                     </Row>
                     <Row>
                         <Button variant="primary">Start</Button>
@@ -34,9 +31,9 @@ function App() {
                         </Form>
                     </Row>
                     <Row>
-                        <div className="alphabet-game__table">
+                        <div className="alphabet-game-table">
                             {Object.keys(alphabetMap).map(letter => {
-                                return <div>
+                                return <div className="alphabet-game-table__item">
                                     {`${letter} (${alphabetMap[letter]})`}
                                 </div>
                             })}

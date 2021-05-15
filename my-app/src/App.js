@@ -5,6 +5,7 @@ import DifficultySelector from "./components/DifficultySelector";
 import { useEffect, useState } from "react";
 import GameStatus from "./components/GameStatus";
 import RandomNumber from "./components/RandomNumber";
+import LetterInput from "./components/LetterInput";
 
 const alphabet = "abcdefghijklmnopqrstuvwxyz";
 const alphabetMap = [...alphabet].reduce((prev, curr) => {
@@ -20,9 +21,13 @@ const App = () => {
         const timer = setTimeout(() => {
             const filterPool = pool.filter(num => num !== currentNumber)
             setPool(filterPool);
-        }, 2000);
+        }, 5000);
         return () => clearTimeout(timer);
     }, [currentNumber]);
+
+    const handleSubmit = (letter) => {
+         console.log(currentNumber === alphabetMap[letter]);
+    }
 
     return (
         <Container>
@@ -38,11 +43,7 @@ const App = () => {
                         <RandomNumber onChange={(num) => setCurrentNumber(num)} pool={pool} />
                     </Row>
                     <Row>
-                        <Form>
-                            <Form.Group>
-                                <Form.Control placeholder="Input Letter" type="text"/>
-                            </Form.Group>
-                        </Form>
+                      <LetterInput onSubmit={handleSubmit} />
                     </Row>
                     <Row>
                         <div className="alphabet-game-table">

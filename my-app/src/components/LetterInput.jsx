@@ -1,13 +1,14 @@
-import {Form} from "react-bootstrap";
-import {useState} from "react";
+import { Form } from "react-bootstrap";
+import { useState } from "react";
 
 const LetterInput = ({ onSubmit }) => {
     const [letter, setLetter] = useState('');
 
     const handleKeyPress = (event) => {
-        if (event.charCode==13){
+        if (event.charCode==13) {
             event.preventDefault();
             onSubmit(letter);
+            setLetter('');
         }
     }
 

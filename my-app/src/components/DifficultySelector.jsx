@@ -3,15 +3,15 @@ import { useState } from "react";
 const DifficultySelector = ({ onChange }) => {
     const [selected, setSelected] = useState();
 
-    const difficultyHandler = (name) => {
-        if (onChange) onChange(name);
-        setSelected(name);
+    const changeHandler = (item) => {
+        if (onChange) onChange(item);
+        setSelected(item.name);
     }
 
     const difficultyLevels = [
-        { label: 'Easy', name: 'easy' },
-        { label: 'Medium', name: 'medium'},
-        { label: 'Hard', name: 'hard'},
+        { label: 'Easy', name: 'easy', time: 5000 },
+        { label: 'Medium', name: 'medium', time: 3000 },
+        { label: 'Hard', name: 'hard', time: 1000}
     ]
 
     return (
@@ -19,7 +19,7 @@ const DifficultySelector = ({ onChange }) => {
             {difficultyLevels.map((item, index) => {
                 return <div className={`difficulty-level__item ${selected === item.name && 'active'}`}
                             key={index}
-                            onClick={() => difficultyHandler(item.name)}>
+                            onClick={() => changeHandler(item)}>
                     <span>{item.label}</span>
                 </div>
             })}

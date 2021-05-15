@@ -2,8 +2,9 @@ import './scss/main.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Container, Row, Col, Form } from "react-bootstrap";
 import DifficultySelector from "./components/DifficultySelector";
-import {useState} from "react";
+import { useEffect, useState } from "react";
 import GameStatus from "./components/GameStatus";
+import RandomNumber from "./components/RandomNumber";
 
 const alphabet = "abcdefghijklmnopqrstuvwxyz";
 const alphabetMap = [...alphabet].reduce((prev, curr) => {
@@ -12,6 +13,17 @@ const alphabetMap = [...alphabet].reduce((prev, curr) => {
 }, {});
 
 const App = () => {
+    const [pool, setPool] = useState([...Array(26).keys()]);
+    const [currentNumber, setCurrentNumber] = useState();
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            const filterPool = pool.filter(num => num !== currentNumber)
+            setPool(filterPool);
+        }, 2000);
+        return () => clearTimeout(timer);
+    }, [currentNumber]);
+
     return (
         <Container>
             <Row>
@@ -23,7 +35,7 @@ const App = () => {
                         <GameStatus />
                     </Row>
                     <Row>
-                        <span>17</span>
+                        <RandomNumber onChange={(num) => setCurrentNumber(num)} pool={pool} />
                     </Row>
                     <Row>
                         <Form>

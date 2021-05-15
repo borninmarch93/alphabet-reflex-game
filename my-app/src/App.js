@@ -6,14 +6,15 @@ import { useEffect, useState } from "react";
 import GameStatus from "./components/GameStatus";
 import RandomNumber from "./components/RandomNumber";
 import LetterInput from "./components/LetterInput";
+import AlphabetTable from "./components/AlphabetTable";
 
 const alphabet = "abcdefghijklmnopqrstuvwxyz";
-const alphabetMap = [...alphabet].reduce((prev, curr) => {
-    prev[curr] = alphabet.indexOf(curr);
-    return prev;
-}, {});
 
 const App = () => {
+    const [alphabetMap, setAlphabetMap] = useState([...alphabet].reduce((prev, curr) => {
+        prev[curr] = {num: alphabet.indexOf(curr)};
+        return prev;
+    }, {}))
     const [pool, setPool] = useState([...Array(26).keys()]);
     const [currentNumber, setCurrentNumber] = useState();
     const [difficultyLevel, setDifficultyLevel] = useState();
@@ -35,10 +36,13 @@ const App = () => {
     }, [currentNumber, gameStatus]);
 
     const handleSubmit = (letter) => {
-        if (currentNumber === alphabetMap[letter]) {
+        const currentLetter = alphabet[currentNumber];
+        if (currentNumber === alphabetMap[letter].num) {
             setScores({...scores, hit: scores.hit + 1})
+            setAlphabetMap({...alphabetMap, [currentLetter]: {...alphabetMap[currentLetter], status: 'hit'}})
         } else {
             setScores({...scores, miss: scores.miss + 1})
+            setAlphabetMap({...alphabetMap, [currentLetter]: {...alphabetMap[currentLetter], status: 'miss'}})
         }
     }
 
@@ -65,13 +69,7 @@ const App = () => {
                         <LetterInput onSubmit={handleSubmit}/>
                     </Row>
                     <Row>
-                        <div className="alphabet-game-table">
-                            {Object.keys(alphabetMap).map(letter => {
-                                return <div className="alphabet-game-table__item">
-                                    {`${letter} (${alphabetMap[letter]})`}
-                                </div>
-                            })}
-                        </div>
+                        <AlphabetTable alphabetMap={alphabetMap} />
                     </Row>
                 </Col>
                 <Col lg={3}>
